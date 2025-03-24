@@ -71,9 +71,27 @@ module ALUTest_v;
                 // Here is one example test vector, testing the ADD instruction:
 		{BusA, BusB, ALUCtrl} = {64'h1234, 64'hABCD0000, 4'h2}; #40; passTest({Zero, BusW}, 65'h0ABCD1234, "ADD 0x1234,0xABCD0000", passed);
 		//Reformate and add your test vectors from the prelab here following the example of the testvector above.	
+		{BusA, BusB, ALUCtrl} = {64'h2, 64'h4, 4'h0}; #40; passTest({Zero, BusW}, {1'b1, 64'h0}, "AND1", passed);
+		{BusA, BusB, ALUCtrl} = {64'h1, 64'h0, 4'h0}; #40; passTest({Zero, BusW}, {1'b1, 64'h0}, "AND2", passed);
+		{BusA, BusB, ALUCtrl} = {64'h5, 64'hC, 4'h0}; #40; passTest({Zero, BusW}, {1'b0, 64'h4}, "AND3", passed);
 
+		{BusA, BusB, ALUCtrl} = {64'h2, 64'h4, 4'h1}; #40; passTest({Zero, BusW}, {1'b0, 64'h6}, "OR1", passed);
+		{BusA, BusB, ALUCtrl} = {64'h8, 64'h1, 4'h1}; #40; passTest({Zero, BusW}, {1'b0, 64'h9}, "OR2", passed);
+		{BusA, BusB, ALUCtrl} = {64'h3, 64'hA, 4'h1}; #40; passTest({Zero, BusW}, {1'b0, 64'hB}, "OR3", passed);
 
-		allPassed(passed, 22);
+		{BusA, BusB, ALUCtrl} = {64'h6, 64'h9, 4'h2}; #40; passTest({Zero, BusW}, {1'b0, 64'hF}, "ADD1", passed);
+		{BusA, BusB, ALUCtrl} = {64'h7, 64'h2, 4'h2}; #40; passTest({Zero, BusW}, {1'b0, 64'h9}, "ADD2", passed);
+		{BusA, BusB, ALUCtrl} = {64'h0, 64'h0, 4'h2}; #40; passTest({Zero, BusW}, {1'b1, 64'h0}, "ADD3", passed);
+
+		{BusA, BusB, ALUCtrl} = {64'hA, 64'h4, 4'h6}; #40; passTest({Zero, BusW}, {1'b0, 64'h6}, "SUB1", passed);
+		{BusA, BusB, ALUCtrl} = {64'h0, 64'h0, 4'h6}; #40; passTest({Zero, BusW}, {1'b1, 64'h0}, "SUB2", passed);
+		{BusA, BusB, ALUCtrl} = {64'hC, 64'h1, 4'h6}; #40; passTest({Zero, BusW}, {1'b0, 64'hB}, "SUB3", passed);
+
+		{BusA, BusB, ALUCtrl} = {64'h5, 64'h0, 4'h7}; #40; passTest({Zero, BusW}, {1'b1, 64'h0}, "PassB1", passed);
+		{BusA, BusB, ALUCtrl} = {64'h7, 64'h2, 4'h7}; #40; passTest({Zero, BusW}, {1'b0, 64'h2}, "PassB2", passed);
+		{BusA, BusB, ALUCtrl} = {64'h1, 64'h0, 4'h7}; #40; passTest({Zero, BusW}, {1'b1, 64'h0}, "PassB3", passed);
+
+		allPassed(passed, 16);
 	end
       
 endmodule
