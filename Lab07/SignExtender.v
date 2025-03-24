@@ -31,9 +31,9 @@ module SignExtender(BusImm, Instr, Ctrl);
                    (Ctrl == 2'b10) ? Instr[25] :  // B-type - sign extend bit 25
                    Instr[23]; // CB-type - sign extend bit 23
 
-   assign BusImm = (Ctrl == 2'b00) ? {{52{extBit}}, Instr[21:10]} : // I-type (12-bit immediate)
+  assign BusImm = (Ctrl == 2'b00) ? {{52{extBit}}, Instr[21:10]} : // I-type (12-bit immediate)
                    (Ctrl == 2'b01) ? {{55{extBit}}, Instr[20:12]} : // D-type (9-bit immediate)
                    (Ctrl == 2'b10) ? {{38{extBit}}, Instr[25:0]} : // B-type (26-bit address)
-                   {{45{extBit}}, Instr[23:5]}; // CB-type (19-bit address)
+   {{45{extBit}}, Instr[23:5]}; // CB-type (19-bit address)
 
 endmodule
