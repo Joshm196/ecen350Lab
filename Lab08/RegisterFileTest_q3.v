@@ -107,6 +107,7 @@ module RegisterFileTest_v;
       {RA, RB, RW, BusW, RegWr} = {5'd0, 5'd0, 5'd30, 64'd30, 1'b1};#10; Clk = 0; #10; Clk = 1;
       {RA, RB, RW, BusW, RegWr} = {5'd0, 5'd0, 5'd31, 64'd31, 1'b1};#10; Clk = 0; #10; Clk = 1;
 
+	   // Ra = 0, Rb = 1, Rw = 0, RegWr = 0, BusW = 0x0
      {RA, RB, RW, BusW, RegWr} = {5'd0, 5'd1, 5'd0, 64'h0, 1'b0};
       #4;
      passTest(BusA, 64'd0, "Initial BusA 1", passed);
@@ -114,7 +115,8 @@ module RegisterFileTest_v;
       #6; Clk = 0; #10; Clk = 1;
      passTest(BusA, 64'd0, "Updated BusA 2", passed);
      passTest(BusB, 64'd1, "Updated BusB 2", passed);
-     
+
+	   // Ra = 2, Rb = 3, Rw = 1, RegWr = 0, BusW = 0x0
      {RA, RB, RW, BusW, RegWr} = {5'd2, 5'd3, 5'd1, 64'h1000, 1'b0};
       #4;
      passTest(BusA, 64'd2, "Initial BusA 2", passed);
