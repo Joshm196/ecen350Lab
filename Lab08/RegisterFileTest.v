@@ -70,6 +70,8 @@ module RegisterFileTest_v;
 
    initial begin
       // Initialize Inputs
+	   $dumpfile("RegisterFile.vcd");
+	   $dumpvars(0, RegisterFileTest_v);
       BusW = 0;
       RA = 0;
       RB = 0;
