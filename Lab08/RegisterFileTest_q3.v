@@ -116,7 +116,7 @@ module RegisterFileTest_v;
      passTest(BusA, 64'd0, "Updated BusA 2", passed);
      passTest(BusB, 64'd1, "Updated BusB 2", passed);
 
-	   // Ra = 2, Rb = 3, Rw = 1, RegWr = 0, BusW = 0x0
+	   // Ra = 2, Rb = 3, Rw = 1, RegWr = 0, BusW = 0x1000
      {RA, RB, RW, BusW, RegWr} = {5'd2, 5'd3, 5'd1, 64'h1000, 1'b0};
       #4;
      passTest(BusA, 64'd2, "Initial BusA 2", passed);
@@ -124,7 +124,8 @@ module RegisterFileTest_v;
       #6; Clk = 0; #10; Clk = 1;
      passTest(BusA, 64'd2, "Updated BusA 2", passed);
      passTest(BusB, 64'd3, "Updated BusB 2", passed);
-     
+
+	   // Ra = 4, Rb = 5, Rw = 0, RegWr = 1, BusW = 0x1000
      {RA, RB, RW, BusW, RegWr} = {5'd4, 5'd5, 5'd0, 64'h1000, 1'b1};
       #4;
      passTest(BusA, 64'd4, "Initial BusA 3", passed);
@@ -132,7 +133,8 @@ module RegisterFileTest_v;
       #6; Clk = 0; #10; Clk = 1;
      passTest(BusA, 64'd4, "Updated BusA 3", passed);
      passTest(BusB, 64'd5, "Updated BusB 3", passed);
-     
+
+	   // Ra = 6, Rb = 7, Rw = 1, RegWr = 1, BusW = 0x1010
      {RA, RB, RW, BusW, RegWr} = {5'd6, 5'd7, 5'd10, 64'h1010, 1'b1};
       #4;
      passTest(BusA, 64'd6, "Initial BusA 4", passed);
@@ -140,7 +142,8 @@ module RegisterFileTest_v;
       #6; Clk = 0; #10; Clk = 1;
      passTest(BusA, 64'd6, "Updated BusA 4", passed);
      passTest(BusB, 64'd7, "Updated BusB 4", passed);
-     
+
+	   // Ra = 8, Rb = 9, Rw = 11, RegWr = 1, BusW = 0x103000
      {RA, RB, RW, BusW, RegWr} = {5'd8, 5'd9, 5'd11, 64'h103000, 1'b1};
       #4;
      passTest(BusA, 64'd8, "Initial BusA 5", passed);
@@ -149,7 +152,7 @@ module RegisterFileTest_v;
      passTest(BusA, 64'd8, "Updated BusA 5", passed);
      passTest(BusB, 64'd9, "Updated BusB 5", passed);
 
-     
+	   // Ra = A, Rb = B, Rw = C, RegWr = 0, BusW = 0x0
      {RA, RB, RW, BusW, RegWr} = {5'ha, 5'hb, 5'hc, 64'h0, 1'b0};
       #4;
      passTest(BusA, 64'h1010, "Initial BusA 6", passed);
@@ -157,7 +160,8 @@ module RegisterFileTest_v;
       #6; Clk = 0; #10; Clk = 1;
      passTest(BusA, 64'h1010, "Updated BusA 6", passed);
      passTest(BusB, 64'h103000, "Updated BusB 6", passed);
-     
+
+	   // Ra = C, Rb = D, Rw = D, RegWr = 1, BusW = 0xABCD
      {RA, RB, RW, BusW, RegWr} = {5'hc, 5'hd, 5'hd, 64'hABCD, 1'b1};
       #4;
      passTest(BusA, 64'hc, "Initial BusA 7", passed);
@@ -165,7 +169,8 @@ module RegisterFileTest_v;
       #6; Clk = 0; #10; Clk = 1;
      passTest(BusA, 64'hc, "Updated BusA 7", passed);
      passTest(BusB, 64'hABCD, "Updated BusB 7", passed);
-     
+
+	   // Ra = E, Rb = F, Rw = E, RegWr = 0, BusW = 0x9080009
      {RA, RB, RW, BusW, RegWr} = {5'he, 5'hf, 5'he, 64'h9080009, 1'b0};
       #4;
      passTest(BusA, 64'he, "Initial BusA 8", passed);
