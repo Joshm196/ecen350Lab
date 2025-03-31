@@ -1,26 +1,5 @@
 `timescale 1ns / 1ps
 
-////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer:
-//
-// Create Date:   10:13:28 03/03/2009
-// Design Name:   RegisterFile
-// Module Name:   E:/350/Lab7/RegisterFile/RegisterFileTest.v
-// Project Name:  RegisterFile
-// Target Device:  
-// Tool versions:  
-// Description: 
-//
-// Verilog Test Fixture created by ISE for module: RegisterFile
-//
-// Dependencies:
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-////////////////////////////////////////////////////////////////////////////////
 
 `define STRLEN 32
 module RegisterFileTest_v;
@@ -128,134 +107,73 @@ module RegisterFileTest_v;
       {RA, RB, RW, BusW, RegWr} = {5'd0, 5'd0, 5'd30, 64'd30, 1'b1};#10; Clk = 0; #10; Clk = 1;
       {RA, RB, RW, BusW, RegWr} = {5'd0, 5'd0, 5'd31, 64'd31, 1'b1};#10; Clk = 0; #10; Clk = 1;
 
-      {RA, RB, RW, BusW, RegWr} = {5'd1, 5'd2, 5'd1, 64'h12345678, 1'b1};
+     {RA, RB, RW, BusW, RegWr} = {5'd0, 5'd1, 5'd0, 64'h0, 1'b0};
       #4;
-      passTest(BusA, 64'd1, "Initial Value Check 1", passed);
-      passTest(BusB, 64'd2, "Initial Value Check 2", passed);
+     passTest(BusA, 64'd0, "Initial BusA 1", passed);
+     passTest(BusB, 64'd1, "Initial BusB 1", passed);
       #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'h12345678, "Value Updated 1", passed);
-      passTest(BusB, 64'd2, "Value Stayed Same 1", passed);
+     passTest(BusA, 64'd0, "Updated BusA 2", passed);
+     passTest(BusB, 64'd1, "Updated BusB 2", passed);
+     
+     {RA, RB, RW, BusW, RegWr} = {5'd2, 5'd3, 5'd1, 64'h1000, 1'b0};
+      #4;
+     passTest(BusA, 64'd2, "Initial BusA 2", passed);
+     passTest(BusB, 64'd3, "Initial BusB 2", passed);
+      #6; Clk = 0; #10; Clk = 1;
+     passTest(BusA, 64'd2, "Updated BusA 2", passed);
+     passTest(BusB, 64'd3, "Updated BusB 2", passed);
+     
+     {RA, RB, RW, BusW, RegWr} = {5'd4, 5'd5, 5'd0, 64'h1000, 1'b1};
+      #4;
+     passTest(BusA, 64'd4, "Initial BusA 3", passed);
+     passTest(BusB, 64'd5, "Initial BusB 3", passed);
+      #6; Clk = 0; #10; Clk = 1;
+     passTest(BusA, 64'd4, "Updated BusA 3", passed);
+     passTest(BusB, 64'd5, "Updated BusB 3", passed);
+     
+     {RA, RB, RW, BusW, RegWr} = {5'd6, 5'd7, 5'd10, 64'h1010, 1'b1};
+      #4;
+     passTest(BusA, 64'd6, "Initial BusA 4", passed);
+     passTest(BusB, 64'd7, "Initial BusB 4", passed);
+      #6; Clk = 0; #10; Clk = 1;
+     passTest(BusA, 64'd6, "Updated BusA 4", passed);
+     passTest(BusB, 64'd7, "Updated BusB 4", passed);
+     
+     {RA, RB, RW, BusW, RegWr} = {5'd8, 5'd9, 5'd11, 64'h103000, 1'b1};
+      #4;
+     passTest(BusA, 64'd8, "Initial BusA 5", passed);
+     passTest(BusB, 64'd9, "Initial BusB 5", passed);
+      #6; Clk = 0; #10; Clk = 1;
+     passTest(BusA, 64'd8, "Updated BusA 5", passed);
+     passTest(BusB, 64'd9, "Updated BusB 5", passed);
 
-      {RA, RB, RW, BusW, RegWr} = {5'd3, 5'd4, 5'd3, 64'h12345678, 1'b0};
+     
+     {RA, RB, RW, BusW, RegWr} = {5'ha, 5'hb, 5'hc, 64'h0, 1'b0};
       #4;
-      passTest(BusA, 64'd3, "Initial Value Check 3", passed);
-      passTest(BusB, 64'd4, "Initial Value Check 4", passed);
+     passTest(BusA, 64'h1010, "Initial BusA 6", passed);
+     passTest(BusB, 64'h103000, "Initial BusB 6", passed);
       #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd3, "Value Not Updated 2", passed);
-      passTest(BusB, 64'd4, "Value Stayed Same 2", passed);
-      
-      {RA, RB, RW, BusW, RegWr} = {5'd5, 5'd6, 5'd3, 64'h12345678, 1'b0};
+     passTest(BusA, 64'h1010, "Updated BusA 6", passed);
+     passTest(BusB, 64'h103000, "Updated BusB 6", passed);
+     
+     {RA, RB, RW, BusW, RegWr} = {5'hc, 5'hd, 5'hd, 64'hABCD, 1'b1};
       #4;
-      passTest(BusA, 64'd5, "Initial Value Check 5", passed);
-      passTest(BusB, 64'd6, "Initial Value Check 6", passed);
+     passTest(BusA, 64'hc, "Initial BusA 7", passed);
+     passTest(BusB, 64'hd, "Initial BusB 7", passed);
       #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd5, "Value Not Updated 3", passed);
-      passTest(BusB, 64'd6, "Value Stayed Same 3", passed);
-      
-      {RA, RB, RW, BusW, RegWr} = {5'd7, 5'd8, 5'd3, 64'h12345678, 1'b0};
+     passTest(BusA, 64'hc, "Updated BusA 7", passed);
+     passTest(BusB, 64'hABCD, "Updated BusB 7", passed);
+     
+     {RA, RB, RW, BusW, RegWr} = {5'he, 5'hf, 5'he, 64'h9080009, 1'b0};
       #4;
-      passTest(BusA, 64'd7, "Initial Value Check 7", passed);
-      passTest(BusB, 64'd8, "Initial Value Check 8", passed);
+     passTest(BusA, 64'he, "Initial BusA 8", passed);
+     passTest(BusB, 64'hf, "Initial BusB 8", passed);
       #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd7, "Value Not Updated 4", passed);
-      passTest(BusB, 64'd8, "Value Stayed Same 4", passed);
-      
-      {RA, RB, RW, BusW, RegWr} = {5'd9, 5'd10, 5'd3, 64'h12345678, 1'b0};
-      #4;
-      passTest(BusA, 64'd9, "Initial Value Check 9", passed);
-      passTest(BusB, 64'd10, "Initial Value Check 10", passed);
-      #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd9, "Value Not Updated 5", passed);
-      passTest(BusB, 64'd10, "Value Stayed Same 5", passed);
+     passTest(BusA, 64'he, "Updated BusA 8", passed);
+     passTest(BusB, 64'hf, "Updated BusB 8", passed);
 
-      {RA, RB, RW, BusW, RegWr} = {5'd11, 5'd12, 5'd3, 64'h12345678, 1'b0};
-      #4;
-      passTest(BusA, 64'd11, "Initial Value Check 11", passed);
-      passTest(BusB, 64'd12, "Initial Value Check 12", passed);
-      #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd11, "Value Not Updated 6", passed);
-      passTest(BusB, 64'd12, "Value Stayed Same 6", passed);
-
-      {RA, RB, RW, BusW, RegWr} = {5'd13, 5'd14, 5'd3, 64'h12345678, 1'b0};
-      #4;
-      passTest(BusA, 64'd13, "Initial Value Check 13", passed);
-      passTest(BusB, 64'd14, "Initial Value Check 14", passed);
-      #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd13, "Value Not Updated 7", passed);
-      passTest(BusB, 64'd14, "Value Stayed Same 7", passed);
-
-      {RA, RB, RW, BusW, RegWr} = {5'd15, 5'd16, 5'd3, 64'h12345678, 1'b0};
-      #4;
-      passTest(BusA, 64'd15, "Initial Value Check 15", passed);
-      passTest(BusB, 64'd16, "Initial Value Check 16", passed);
-      #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd15, "Value Not Updated 8", passed);
-      passTest(BusB, 64'd16, "Value Stayed Same 8", passed);
-
-      {RA, RB, RW, BusW, RegWr} = {5'd17, 5'd18, 5'd3, 64'h12345678, 1'b0};
-      #4;
-      passTest(BusA, 64'd17, "Initial Value Check 17", passed);
-      passTest(BusB, 64'd18, "Initial Value Check 18", passed);
-      #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd17, "Value Not Updated 9", passed);
-      passTest(BusB, 64'd18, "Value Stayed Same 9", passed);
-
-      {RA, RB, RW, BusW, RegWr} = {5'd19, 5'd20, 5'd3, 64'h12345678, 1'b0};
-      #4;
-      passTest(BusA, 64'd19, "Initial Value Check 19", passed);
-      passTest(BusB, 64'd20, "Initial Value Check 20", passed);
-      #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd19, "Value Not Updated 10", passed);
-      passTest(BusB, 64'd20, "Value Stayed Same 10", passed);
-
-      {RA, RB, RW, BusW, RegWr} = {5'd21, 5'd22, 5'd3, 64'h12345678, 1'b0};
-      #4;
-      passTest(BusA, 64'd21, "Initial Value Check 21", passed);
-      passTest(BusB, 64'd22, "Initial Value Check 22", passed);
-      #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd21, "Value Not Updated 11", passed);
-      passTest(BusB, 64'd22, "Value Stayed Same 11", passed);
-
-      {RA, RB, RW, BusW, RegWr} = {5'd23, 5'd24, 5'd3, 64'h12345678, 1'b0};
-      #4;
-      passTest(BusA, 64'd23, "Initial Value Check 23", passed);
-      passTest(BusB, 64'd24, "Initial Value Check 24", passed);
-      #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd23, "Value Not Updated 12", passed);
-      passTest(BusB, 64'd24, "Value Stayed Same 12", passed);
-
-      {RA, RB, RW, BusW, RegWr} = {5'd25, 5'd26, 5'd3, 64'h12345678, 1'b0};
-      #4;
-      passTest(BusA, 64'd25, "Initial Value Check 25", passed);
-      passTest(BusB, 64'd26, "Initial Value Check 26", passed);
-      #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd25, "Value Not Updated 13", passed);
-      passTest(BusB, 64'd26, "Value Stayed Same 13", passed);
-
-      {RA, RB, RW, BusW, RegWr} = {5'd27, 5'd28, 5'd3, 64'h12345678, 1'b0};
-      #4;
-      passTest(BusA, 64'd27, "Initial Value Check 27", passed);
-      passTest(BusB, 64'd28, "Initial Value Check 28", passed);
-      #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd27, "Value Not Updated 14", passed);
-      passTest(BusB, 64'd28, "Value Stayed Same 14", passed);
-
-      {RA, RB, RW, BusW, RegWr} = {5'd29, 5'd30, 5'd3, 64'h12345678, 1'b0};
-      #4;
-      passTest(BusA, 64'd29, "Initial Value Check 29", passed);
-      passTest(BusB, 64'd30, "Initial Value Check 30", passed);
-      #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd29, "Value Not Updated 15", passed);
-      passTest(BusB, 64'd30, "Value Stayed Same 15", passed);
-
-      {RA, RB, RW, BusW, RegWr} = {5'd31, 5'd31, 5'd3, 64'h12345678, 1'b0};
-      #4;
-      passTest(BusA, 64'd0, "Initial Value Check 31", passed);
-      #6; Clk = 0; #10; Clk = 1;
-      passTest(BusA, 64'd0, "Value Not Updated 16", passed);
 
       allPassed(passed, 68);
    end
    
 endmodule
-
