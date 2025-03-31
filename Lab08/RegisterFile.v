@@ -9,11 +9,11 @@ module RegisterFile(BusA, BusB, BusW, RA, RB, RW, RegWr, Clk);
     
     reg [63:0] registers[31:0]; // 32x64 register
      
-    assign #2 BusA = (RA == 0) ? 0 : registers[RA]; // data from registers to specific bus
-    assign #2 BusB = (RB == 0) ? 0 : registers[RB]; // 2 tic delay
+    assign #2 BusA = RA == 31 ? 0 : registers[RA]; // data from registers to specific bus
+    assign #2 BusB = RB == 31 ? 0 : registers[RB]; // 2 tic delay
      
     always @ (negedge Clk) begin // based on negative clock edge
-        if(RegWr && RW != 5'b11111) // prevent writes to reg 31
+        if(RegWr) // prevent writes to reg 31
             registers[RW] <= #3 BusW; // write with 3 tic delay
     end
 endmodule // end of module
