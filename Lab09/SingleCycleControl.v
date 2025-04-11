@@ -33,9 +33,10 @@ module control(
             casez (opcode)
 
           /* Add cases here for each instruction your processor supports */
+          
       
 			//R-Type: AND
-            OPCODE_ANDREG:
+            `OPCODE_ANDREG:
             begin
                 reg2loc       = 1'b0;
                 alusrc        = 1'b0;
@@ -50,7 +51,7 @@ module control(
             end
 
 			//R-Type: ORR
-            OPCODE_ORRREG:
+            `OPCODE_ORRREG:
             begin
                 reg2loc       = 1'b0;
                 alusrc        = 1'b0;
@@ -65,7 +66,7 @@ module control(
             end
 
 			//R-Type: ADD
-            OPCODE_ADDREG:
+            `OPCODE_ADDREG:
             begin
                 reg2loc       = 1'b0;
                 alusrc        = 1'b0;
@@ -80,7 +81,7 @@ module control(
             end
 
 			//R-Type: SUB
-            OPCODE_SUBREG:
+            `OPCODE_SUBREG:
             begin
                 reg2loc       = 1'b0;
                 alusrc        = 1'b0;
@@ -95,7 +96,7 @@ module control(
             end
 
 			//I-Type: ADDI
-            OPCODE_ADDIMM:
+            `OPCODE_ADDIMM:
             begin
                 reg2loc       = 1'bx;
                 alusrc        = 1'b1;
@@ -110,7 +111,7 @@ module control(
             end
 
 			//I-Type: SUBI
-            OPCODE_SUBIMM:
+            `OPCODE_SUBIMM:
             begin
                 reg2loc       = 1'bx;
                 alusrc        = 1'b1;
@@ -125,7 +126,7 @@ module control(
             end
 
 			//MOVZ 
-            OPCODE_MOVZ:
+            `OPCODE_MOVZ:
             begin
                 reg2loc       = 1'bx;
                 alusrc        = 1'b1;
@@ -140,7 +141,7 @@ module control(
             end
 
 			//B  
-            OPCODE_B:
+            `OPCODE_B:
             begin
                 reg2loc       = 1'bx;
                 alusrc        = 1'bx;
@@ -155,7 +156,7 @@ module control(
             end
 
 			//CBZ 
-            OPCODE_CBZ:
+            `OPCODE_CBZ:
             begin
                 reg2loc       = 1'b1;
                 alusrc        = 1'b0;
@@ -170,7 +171,7 @@ module control(
             end
 
 			//LDUR
-            OPCODE_LDUR:
+            `OPCODE_LDUR:
             begin
                 reg2loc       = 1'b0;
                 alusrc        = 1'b1;
@@ -185,7 +186,7 @@ module control(
             end
 
 			//STUR
-            OPCODE_STUR:
+            `OPCODE_STUR:
             begin
                 reg2loc       = 1'b1;
                 alusrc        = 1'b1;
