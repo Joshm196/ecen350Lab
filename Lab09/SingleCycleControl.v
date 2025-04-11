@@ -97,7 +97,7 @@ module control(
 			//I-Type: ADDI
             OPCODE_ADDIMM:
             begin
-                reg2loc       = 1'b0;
+                reg2loc       = 1'bx;
                 alusrc        = 1'b1;
                 mem2reg       = 1'b0;
                 regwrite      = 1'b1;
@@ -112,7 +112,7 @@ module control(
 			//I-Type: SUBI
             OPCODE_SUBIMM:
             begin
-                reg2loc       = 1'b0;
+                reg2loc       = 1'bx;
                 alusrc        = 1'b1;
                 mem2reg       = 1'b0;
                 regwrite      = 1'b1;
@@ -124,50 +124,81 @@ module control(
                 signop        = 2'b00;
             end
 
-			//
-            "OPCODE":
+			//MOVZ 
+            OPCODE_MOVZ:
             begin
-                reg2loc       = 1'b0;
-                alusrc        = 1'b0;
+                reg2loc       = 1'bx;
+                alusrc        = 1'b1;
                 mem2reg       = 1'b0;
-                regwrite      = 1'b0;
+                regwrite      = 1'b1;
                 memread       = 1'b0;
                 memwrite      = 1'b0;
                 branch        = 1'b0;
                 uncond_branch = 1'b0;
-                aluop         = 4'b0000;
-                signop        = 2'bxx;
+                aluop         = 4'b1000;
+                signop        = 2'b00;
             end
 
-			//
-            "OPCODE":
+			//B  
+            OPCODE_B:
             begin
-                reg2loc       = 1'b0;
-                alusrc        = 1'b0;
-                mem2reg       = 1'b0;
+                reg2loc       = 1'bx;
+                alusrc        = 1'bx;
+                mem2reg       = 1'bx;
                 regwrite      = 1'b0;
                 memread       = 1'b0;
                 memwrite      = 1'b0;
                 branch        = 1'b0;
-                uncond_branch = 1'b0;
+                uncond_branch = 1'b1;
                 aluop         = 4'b0000;
-                signop        = 2'bxx;
+                signop        = 2'b10;
             end
 
-			//
-            "OPCODE":
+			//CBZ 
+            OPCODE_CBZ:
             begin
-                reg2loc       = 1'b0;
+                reg2loc       = 1'b1;
                 alusrc        = 1'b0;
-                mem2reg       = 1'b0;
+                mem2reg       = 1'bx;
                 regwrite      = 1'b0;
                 memread       = 1'b0;
                 memwrite      = 1'b0;
+                branch        = 1'b1;
+                uncond_branch = 1'b0;
+                aluop         = 4'b0111;
+                signop        = 2'b01;
+            end
+
+			//LDUR
+            OPCODE_LDUR:
+            begin
+                reg2loc       = 1'b0;
+                alusrc        = 1'b1;
+                mem2reg       = 1'b1;
+                regwrite      = 1'b1;
+                memread       = 1'b1;
+                memwrite      = 1'b0;
                 branch        = 1'b0;
                 uncond_branch = 1'b0;
-                aluop         = 4'b0000;
-                signop        = 2'bxx;
+                aluop         = 4'b0010;
+                signop        = 2'b11;
             end
+
+			//STUR
+            OPCODE_STUR:
+            begin
+                reg2loc       = 1'b1;
+                alusrc        = 1'b1;
+                mem2reg       = 1'bx;
+                regwrite      = 1'b0;
+                memread       = 1'b0;
+                memwrite      = 1'b1;
+                branch        = 1'b0;
+                uncond_branch = 1'b0;
+                aluop         = 4'b0010;
+                signop        = 2'b11;
+            end
+
 
         default:
             begin
