@@ -9,7 +9,7 @@
 `define OPCODE_MOVZ   11'b11010010100
 
 `define OPCODE_B      11'b000101xxxxx
-`define OPCODE_CBZ    11'b10110100000
+`define OPCODE_CBZ    11'b10110100xxx
 
 `define OPCODE_LDUR   11'b11111000010
 `define OPCODE_STUR   11'b11111000000
@@ -151,7 +151,7 @@ module control(
                 memwrite      = 1'b0;
                 branch        = 1'b0;
                 uncond_branch = 1'b1;
-                aluop         = 4'b0000;
+                aluop         = 4'bxxxx;
                 signop        = 2'b10;
             end
 
@@ -173,7 +173,7 @@ module control(
 			//LDUR
             `OPCODE_LDUR:
             begin
-                reg2loc       = 1'b0;
+                reg2loc       = 1'bx;
                 alusrc        = 1'b1;
                 mem2reg       = 1'b1;
                 regwrite      = 1'b1;
