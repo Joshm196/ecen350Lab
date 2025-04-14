@@ -115,9 +115,9 @@ module singlecycle(
     .ReadData(readdata),
     .Address(aluout),
     .WriteData(regoutB),
-    .MemRead(memread),
-    .MemWrite(memwrite),
-    .Clk(CLK)
+    .MemoryRead(memread),
+    .MemoryWrite(memwrite),
+    .Clock(CLK)
   );
 
   assign MemtoRegOut = mem2reg ? readdata : aluout;
