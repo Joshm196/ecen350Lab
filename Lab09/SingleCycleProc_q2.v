@@ -90,7 +90,7 @@ module singlecycle(
     * Connect the remaining datapath elements below.
     * Do not forget any additional multiplexers that may be required.
     */
-
+	// signextender module
   SignExtender sign_extender(
     .BusImm(extimm),
     .Instr(instruction[25:0]),
@@ -98,7 +98,7 @@ module singlecycle(
   );
 
   wire [63:0] ALU_inputB = alusrc ? extimm : regoutB; // ALU mux
-
+	// alu module
   ALU alu(
     .BusA(regoutA), //Read data 1 (This is the input not output so regoutA can go here)
     .BusB(ALU_inputB),
@@ -109,7 +109,7 @@ module singlecycle(
 
   // data mux
   wire [63:0] data = mem2reg ? MemtoRegOut : aluout;
-
+	// data memory module
   DataMemory data_memory(
     .ReadData(MemtoRegOut),
     .Address(aluout),
@@ -118,7 +118,7 @@ module singlecycle(
     .MemoryWrite(memwrite),
     .Clock(CLK)
   );
-
+	// register file module
   RegisterFile register_file(
     .BusA(regoutA), //Read data 1 (Feeds into ALU's Input which is not in the same order of output input)
     .BusB(regoutB),
