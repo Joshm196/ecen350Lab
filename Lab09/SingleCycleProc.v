@@ -45,6 +45,14 @@ module singlecycle(
    wire [63:0] 			     extimm;
 
    // PC update logic
+   NextPClogic nextpclogic(
+     .NextPC(nextpc),
+     .CurrentPC(currentpc),
+     .SignExtImm64(extimm),
+     .Branch(branch),
+     .ALUZero(zero),
+     .Uncondbranch(uncond_branch)
+   );
    always @(negedge CLK)
      begin
         if (resetl)
@@ -119,16 +127,7 @@ module singlecycle(
     .MemoryWrite(memwrite),
     .Clock(CLK)
   );
-
+  // memtoreg mux
   assign MemtoRegOut = mem2reg ? readdata : aluout;
-
-  NextPClogic nextpclogic(
-    .NextPC(nextpc),
-    .CurrentPC(currentpc),
-    .SignExtImm64(extimm),
-    .Branch(branch),
-    .ALUZero(zero),
-    .Uncondbranch(uncond_branch)
-  );
 
 endmodule
