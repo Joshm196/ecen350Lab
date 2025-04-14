@@ -82,8 +82,53 @@ module singlecycle(
     * Connect the remaining datapath elements below.
     * Do not forget any additional multiplexers that may be required.
     */
+  RegisterFile register_file(
+    .BusA(regoutA),
+    .BusB(regoutB),
+    .BusW(MemtoRegOut),
+    .RA(rm),
+    .RB(rn),
+    .RW(rd),
+    .RegWr(regwrite),
+    .Clk(CLK)
+  );
 
+  SignExtender sign_extender(
+    .Instr(instruction[25:0]),
+    .Control(signop),
+    .SEout(extimm)
+  );
 
+  wire [63:0] ALU_inputB = alusrc ? extimm : regoutB;
+
+  ALU alu(
+    .BusA(BusA),
+    .BusB(ALU_inputB),
+    .ALUCtrl(aluctrl),
+    .BusW(aluout),
+    .Zero(zero)
+  );
+
+  wire [63:0] readdata;
+
+  DataMemory data_memory(
+    .ReadData(readdata),
+    .Address(aluout),
+    .WriteData(regoutB),
+    .MemRead(memread),
+    .MemWrite(memwrite),
+    .Clk(CLK)
+  );
+
+  assign MemtoRegOut = mem2reg ? readdata : aluout;
+
+  NextPClogic nextpclogic(
+    .NextPC(nextpc),
+    .CurrentPC(currentpc),
+    .SignExtImm64(extimm),
+    .Branch(branch),
+    .ALUZero(zero),
+    .Uncondbranch(uncond_branch)
+  );
 
 endmodule
-
