@@ -56,9 +56,9 @@ module singlecycle(
    always @(negedge CLK)
      begin
         if (resetl)
-          currentpc <= #3 nextpc;
+          currentpc <= nextpc;
         else
-          currentpc <= #3 startpc;
+          currentpc <= startpc;
      end
 
    // Parts of instruction
@@ -90,16 +90,6 @@ module singlecycle(
     * Connect the remaining datapath elements below.
     * Do not forget any additional multiplexers that may be required.
     */
-  RegisterFile register_file(
-    .BusA(regoutA), //Read data 1 (Feeds into ALU's Input which is not in the same order of output input)
-    .BusB(regoutB),
-    .BusW(MemtoRegOut),
-    .RA(rm),
-    .RB(rn),
-    .RW(rd),
-    .RegWr(regwrite),
-    .Clk(CLK)
-  );
 
   SignExtender sign_extender(
     .BusImm(extimm),
@@ -107,7 +97,7 @@ module singlecycle(
     .Ctrl(signop)
   );
 
-  wire [63:0] ALU_inputB = alusrc ? extimm : regoutB;
+  wire [63:0] ALU_inputB = alusrc ? extimm : regoutB; // ALU mux
 
   ALU alu(
     .BusA(regoutA), //Read data 1 (This is the input not output so regoutA can go here)
@@ -117,17 +107,27 @@ module singlecycle(
     .Zero(zero)
   );
 
-  wire [63:0] readdata;
+  // data mux
+  wire [63:0] data = mem2reg ? MemtoRegOut : aluout;
 
   DataMemory data_memory(
-    .ReadData(readdata),
+    .ReadData(MemtoRegOut),
     .Address(aluout),
     .WriteData(regoutB),
     .MemoryRead(memread),
     .MemoryWrite(memwrite),
     .Clock(CLK)
   );
-  // memtoreg mux
-  assign MemtoRegOut = mem2reg ? readdata : aluout;
+
+  RegisterFile register_file(
+    .BusA(regoutA), //Read data 1 (Feeds into ALU's Input which is not in the same order of output input)
+    .BusB(regoutB),
+    .BusW(data),
+    .RA(rm),
+    .RB(rn),
+    .RW(rd),
+    .RegWr(regwrite),
+    .Clk(CLK)
+  );
 
 endmodule
