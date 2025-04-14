@@ -34,7 +34,7 @@ module singlecycle(
    wire [1:0] 			     signop;
 
    // Register file connections
-   wire [63:0] 			     regoutA;     // Output A
+   wire [63:0] 			     regoutA;     // Output A: Read data 1 (on diagram)
    wire [63:0] 			     regoutB;     // Output B
 
    // ALU connections
@@ -83,7 +83,7 @@ module singlecycle(
     * Do not forget any additional multiplexers that may be required.
     */
   RegisterFile register_file(
-    .BusA(regoutA),
+    .BusA(regoutA), //Read data 1 (Feeds into ALU's Input which is not in the same order of output input)
     .BusB(regoutB),
     .BusW(MemtoRegOut),
     .RA(rm),
@@ -102,7 +102,7 @@ module singlecycle(
   wire [63:0] ALU_inputB = alusrc ? extimm : regoutB;
 
   ALU alu(
-    .BusA(BusA),
+    .BusA(regoutA), //Read data 1 (This is the input not output so regoutA can go here)
     .BusB(ALU_inputB),
     .ALUCtrl(aluctrl),
     .BusW(aluout),
