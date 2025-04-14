@@ -94,9 +94,9 @@ module singlecycle(
   );
 
   SignExtender sign_extender(
+    .BusImm(extimm)
     .Instr(instruction[25:0]),
-    .Control(signop),
-    .SEout(extimm)
+    .Ctrl(signop),
   );
 
   wire [63:0] ALU_inputB = alusrc ? extimm : regoutB;
