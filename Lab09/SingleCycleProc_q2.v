@@ -62,10 +62,10 @@ module singlecycle(
      end
 
    // Parts of instruction
-   assign rd = instruction[4:0];
-   assign rm = instruction[9:5];
-   assign rn = reg2loc ? instruction[4:0] : instruction[20:16];
-   assign opcode = instruction[31:21];
+   assign rd = instruction[4:0]; // destination register
+   assign rm = instruction[9:5]; // operand 1
+   assign rn = reg2loc ? instruction[4:0] : instruction[20:16]; // operand 2
+   assign opcode = instruction[31:21]; // opcode
 
    InstructionMemory imem(
 			  .Data(instruction),
